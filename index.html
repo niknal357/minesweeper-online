@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .basic {
+            font-size: 22px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        
+        .bigBasic {
+            font-size: 32px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        
+        input {
+            height: 32px;
+            width: 75px;
+        }
+    </style>
+    <script>
+        function validate() {
+            document.getElementById('rows').value = Math.max(3, parseInt(document.getElementById('rows').value));
+            document.getElementById('cols').value = Math.max(3, parseInt(document.getElementById('cols').value));
+            document.getElementById('mines').value = Math.max(1, Math.min(parseInt(document.getElementById('rows').value) * parseInt(document.getElementById('cols').value) - 9, parseInt(document.getElementById('mines').value)));
+        }
+
+        function set_vals(r, c, m) {
+            document.getElementById('rows').value = r;
+            document.getElementById('cols').value = c;
+            document.getElementById('mines').value = m;
+        }
+
+        function play() {
+            let rows = document.getElementById('rows').value;
+            let cols = document.getElementById('cols').value;
+            let mines = document.getElementById('mines').value;
+            let url = "game.html?rows=" + rows + "&cols=" + cols + "&mines=" + mines;
+            window.location.href = url;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="bigBasic">Minesweeper Online</div>
+    <br>
+    <div><button class="basic" onclick="set_vals(8, 8, 10)">Classic Beginner</button> <button class="basic" onclick="set_vals(13, 15, 40)">Classic Intermediate</button> <button class="basic" onclick="set_vals(16, 30, 99)">Classic Expert</button></div>
+    <br>
+    <div><button class="basic" onclick="set_vals(10, 10, 16)">Easy</button> <button class="basic" onclick="set_vals(14, 18, 50)">Medium</button> <button class="basic" onclick="set_vals(20, 20, 100)">Hard</button> <button class="basic">Funky</button></div>
+    <br>
+    <div class="basic">Rows: <input class="basic" id="rows" type="number" value=20 onchange="validate()"></div>
+    <br>
+    <div class="basic">Cols: <input class="basic" id="cols" type="number" value=20 onchange="validate()"></div>
+    <br>
+    <div class="basic">Mines: <input class="basic" id="mines" type="number" value=100 onchange="validate()"></div>
+    <br>
+    <button class="basic" onclick="play()">Play</button>
+</body>
+
+</html>
