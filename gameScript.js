@@ -3,6 +3,7 @@ const urlParams = new URLSearchParams(queryString);
 let rows = parseInt(urlParams.get('rows'));
 let cols = parseInt(urlParams.get('cols'));
 let mine_count = parseInt(urlParams.get('mines'));
+let shape = urlParams.get('shape')
 if (rows == null || cols == null || mine_count == null) {
     window.location.href = "index.html";
 }
@@ -15,11 +16,28 @@ var playing = true;
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+if (shape == null || shape == 'rect') {
+    for (var r = 0; r < rows; r++) {
+        grid.push([]);
+        for (var c = 0; c < cols; c++) {
+            grid[grid.length - 1].push("u");
+        }
+    }
+} else if (shape == 'donut') {
+    for (var r = 0; r < rows; r++) {
+        grid.push([]);
+        for (var c = 0; c < cols; c++) {
+            ra = r - rows / 2 + 0.5;
+            ca = c - cols / 2 + 0.5;
 
-for (var r = 0; r < rows; r++) {
-    grid.push([]);
-    for (var c = 0; c < cols; c++) {
-        grid[grid.length - 1].push("u");
+            if ((ca * ca) / (cols / 4 * cols) + (ra * ra) / (rows / 4 * rows) <= 1 && (ca * ca) / (cols / 4 * cols) + (ra * ra) / (rows / 4 * rows) >= 0.25) {
+
+                grid[grid.length - 1].push("u");
+            } else {
+
+                grid[grid.length - 1].push("o");
+            }
+        }
     }
 }
 
@@ -40,14 +58,16 @@ window.addEventListener('load', function() {
     //}
     for (var r = 0; r < rows; r++) {
         for (var c = 0; c < cols; c++) {
-            var button = document.createElement("button");
-            button.classList.add("but");
-            button.id = "but_" + r + 'm' + c;
-            button.setAttribute("onClick", "javascript: clickHandler(" + r + ", " + c + ");");
-            button.style.padding = "0";
-            button.style.left = c * 35 + "px";
-            button.style.top = r * 35 + 80 + "px";
-            document.body.appendChild(button);
+            if (grid[r][c] == 'u') {
+                var button = document.createElement("button");
+                button.classList.add("but");
+                button.id = "but_" + r + 'm' + c;
+                button.setAttribute("onClick", "javascript: clickHandler(" + r + ", " + c + ");");
+                button.style.padding = "0";
+                button.style.left = c * 35 + "px";
+                button.style.top = r * 35 + 80 + "px";
+                document.body.appendChild(button);
+            }
         }
     }
 })

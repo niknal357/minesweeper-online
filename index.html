@@ -25,17 +25,19 @@
             document.getElementById('mines').value = Math.max(1, Math.min(parseInt(document.getElementById('rows').value) * parseInt(document.getElementById('cols').value) - 9, parseInt(document.getElementById('mines').value)));
         }
 
-        function set_vals(r, c, m) {
+        function set_vals(r, c, m, shape) {
             document.getElementById('rows').value = r;
             document.getElementById('cols').value = c;
             document.getElementById('mines').value = m;
+            document.getElementById('shape').value = shape;
         }
 
         function play() {
             let rows = document.getElementById('rows').value;
             let cols = document.getElementById('cols').value;
             let mines = document.getElementById('mines').value;
-            let url = "game.html?rows=" + rows + "&cols=" + cols + "&mines=" + mines;
+            let shape = document.getElementById('shape').value;
+            let url = "game.html?rows=" + rows + "&cols=" + cols + "&mines=" + mines + "&shape=" + shape;
             window.location.href = url;
         }
     </script>
@@ -44,15 +46,31 @@
 <body>
     <div class="bigBasic">Minesweeper Online</div>
     <br>
-    <div><button class="basic" onclick="set_vals(8, 8, 10)">Classic Beginner</button> <button class="basic" onclick="set_vals(13, 15, 40)">Classic Intermediate</button> <button class="basic" onclick="set_vals(16, 30, 99)">Classic Expert</button></div>
+    <div>
+        <button class="basic" onclick="set_vals(8, 8, 10, 'rect')">Classic Beginner</button>
+        <button class="basic" onclick="set_vals(13, 15, 40, 'rect')">Classic Intermediate</button>
+        <button class="basic" onclick="set_vals(16, 30, 99, 'rect')">Classic Expert</button>
+    </div>
     <br>
-    <div><button class="basic" onclick="set_vals(10, 10, 16)">Easy</button> <button class="basic" onclick="set_vals(14, 18, 50)">Medium</button> <button class="basic" onclick="set_vals(20, 20, 100)">Hard</button> <button class="basic" onclick="set_vals(5, 20, 25)">Funky</button>        <button class="basic" onclick="window.location.href='donut.html'">Donut</button></div>
+    <div>
+        <button class="basic" onclick="set_vals(10, 10, 16, 'rect')">Easy</button>
+        <button class="basic" onclick="set_vals(14, 18, 50, 'rect')">Medium</button>
+        <button class="basic" onclick="set_vals(20, 20, 100, 'rect')">Hard</button>
+        <button class="basic" onclick="set_vals(5, 20, 25, 'rect')">Funky</button>
+        <button class="basic" onclick="set_vals(20, 20, 50, 'donut')">Donut</button>
+    </div>
     <br>
     <div class="basic">Rows: <input class="basic" id="rows" type="number" value=20 onchange="validate()"></div>
     <br>
     <div class="basic">Cols: <input class="basic" id="cols" type="number" value=20 onchange="validate()"></div>
     <br>
     <div class="basic">Mines: <input class="basic" id="mines" type="number" value=100 onchange="validate()"></div>
+    <br>
+    <select id="shape" class="basic">
+        <option value="rect">Rectangle</option>
+        <option value="donut">Donut</option>
+    </select>
+    <br>
     <br>
     <button class="basic" onclick="play()">Play</button>
 </body>
