@@ -3,7 +3,8 @@ const urlParams = new URLSearchParams(queryString);
 let rows = parseInt(urlParams.get('rows'));
 let cols = parseInt(urlParams.get('cols'));
 let mine_count = parseInt(urlParams.get('mines'));
-let shape = urlParams.get('shape')
+let shape = urlParams.get('shape');
+let highlight_assist = urlParams.get('highlight_assist') == "true";
 if (rows == null || cols == null || mine_count == null) {
     window.location.href = "index.html";
 }
@@ -35,8 +36,15 @@ if (shape == null || shape == 'rect') {
                 grid[grid.length - 1].push("u");
             } else {
 
-                grid[grid.length - 1].push("o");
+                grid[grid.length - 1].push("-");
             }
+        }
+    }
+} else if (shape == 'triangle') {
+    for (var r = 0; r < rows; r++) {
+        grid.push([]);
+        for (var c = 0; c < cols; c++) {
+
         }
     }
 }
@@ -129,6 +137,7 @@ function reveal(r, c) {
         } else if (cnt == 8) {
             color = "#ffff00";
         }
+
         document.getElementById("but_" + r + "m" + c).style.color = color;
         document.getElementById("but_" + r + "m" + c).textContent = '' + cnt;
         document.getElementById("but_" + r + "m" + c).classList.add("revealed");
@@ -214,6 +223,61 @@ function clickHandler(r, c) {
         document.getElementById("but_" + r + "m" + c).textContent = '🚩';
     } else if (grid[r][c] == "ub") {
         document.getElementById("but_" + r + "m" + c).textContent = '';
+    }
+    if (highlight_assist) {
+        for (var ra = 0; ra < rows; ra++) {
+            for (var ca = 0; ca < cols; ca++) {
+                let cnt = 0;
+                for (var ro = -1; ro < 2; ro++) {
+                    for (var co = -1; co < 2; co++) {
+                        if (ro != 0 || co != 0) {
+                            if (ra + ro >= 0 && ra + ro < rows && ca + co >= 0 && ca + co < cols) {
+                                if (grid[ra + ro][ca + co] == 'ub' || grid[ra + ro][ca + co] == 'bf' || grid[ra + ro][ca + co] == 'b') {
+                                    cnt++;
+                                }
+                            }
+                        }
+                    }
+                }
+                let flag_cnt = 0;
+                for (var ro = -1; ro < 2; ro++) {
+                    for (var co = -1; co < 2; co++) {
+                        if (ro != 0 || co != 0) {
+                            if (ra + ro >= 0 && ra + ro < rows && ca + co >= 0 && ca + co < cols) {
+                                if (grid[ra + ro][ca + co] == 'f' || grid[ra + ro][ca + co] == 'bf') {
+                                    flag_cnt++;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (grid[ra][ca] == 'o') {
+                    let color = "#ff0000";
+                    if (cnt == flag_cnt) {
+                        color = "#444444";
+                    } else {
+                        if (cnt == 1) {
+                            color = "#6666ff";
+                        } else if (cnt == 2) {
+                            color = "#33aa33";
+                        } else if (cnt == 3) {
+                            color = "#ff5555";
+                        } else if (cnt == 4) {
+                            color = "#aa33aa";
+                        } else if (cnt == 5) {
+                            color = "#ee55ee";
+                        } else if (cnt == 6) {
+                            color = "#aa3333";
+                        } else if (cnt == 7) {
+                            color = "#22aaaa";
+                        } else if (cnt == 8) {
+                            color = "#ffff00";
+                        }
+                    }
+                    document.getElementById("but_" + ra + "m" + ca).style.color = color;
+                }
+            }
+        }
     }
     check_win();
 }

@@ -38,7 +38,11 @@
             let cols = document.getElementById('cols').value;
             let mines = document.getElementById('mines').value;
             let shape = document.getElementById('shape').value;
-            let url = "game.html?rows=" + rows + "&cols=" + cols + "&mines=" + mines + "&shape=" + shape;
+            let h_assist = "false";
+            if (document.getElementById('h_assist').value) {
+                h_assist = "true";
+            }
+            let url = "game.html?rows=" + rows + "&cols=" + cols + "&mines=" + mines + "&shape=" + shape + "&highlight_assist=" + h_assist;
             window.location.href = url;
         }
     </script>
@@ -58,7 +62,7 @@
         <button class="basic" onclick="set_vals(14, 18, 50, 'rect')">Medium</button>
         <button class="basic" onclick="set_vals(20, 20, 100, 'rect')">Hard</button>
         <button class="basic" onclick="set_vals(5, 20, 25, 'rect')">Funky</button>
-        <button class="basic" onclick="set_vals(20, 20, 50, 'donut')">Donut</button>
+        <button class="basic" onclick="set_vals(20, 20, 65, 'donut')">Donut</button>
     </div>
     <br>
     <div class="basic">Rows: <input class="basic" id="rows" type="number" value=20 onchange="validate()"></div>
@@ -73,6 +77,8 @@
             <option value="donut">Donut</option>
         </select>
     </div>
+    <br>
+    <div class="basic">Highlight Assist: <input type="checkbox" id="h_assist" style="width:22px; height:22px;"></div>
     <br>
     <button class="basic" onclick="play()">Play</button>
 </body>
