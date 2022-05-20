@@ -38,10 +38,7 @@
             let cols = document.getElementById('cols').value;
             let mines = document.getElementById('mines').value;
             let shape = document.getElementById('shape').value;
-            let h_assist = "false";
-            if (document.getElementById('h_assist').value) {
-                h_assist = "true";
-            }
+            let h_assist = document.getElementById('h_assist').checked;
             let url = "game.html?rows=" + rows + "&cols=" + cols + "&mines=" + mines + "&shape=" + shape + "&highlight_assist=" + h_assist;
             window.location.href = url;
         }
