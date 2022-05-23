@@ -29,11 +29,14 @@
             let mine_count = parseInt(urlParams.get('mines'));
             let shape = urlParams.get('shape');
             let highlight_assist = urlParams.get('highlight_assist') == "true";
-            document.getElementById('rows').value = parseInt(rows);
-            document.getElementById('cols').value = parseInt(cols);
-            document.getElementById('mines').value = parseInt(mine_count);
-            document.getElementById('shape').value = shape;
-            document.getElementById('h_assist').checked = highlight_assist;
+            if (rows != null && cols != null && mine_count != null && shape != null && highlight_assist != null) {
+
+                document.getElementById('rows').value = parseInt(rows);
+                document.getElementById('cols').value = parseInt(cols);
+                document.getElementById('mines').value = parseInt(mine_count);
+                document.getElementById('shape').value = shape;
+                document.getElementById('h_assist').checked = highlight_assist;
+            }
         });
 
         function validate() {
