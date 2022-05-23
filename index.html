@@ -20,6 +20,22 @@
         }
     </style>
     <script>
+        window.addEventListener('load', function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            let rows = parseInt(urlParams.get('rows'));
+            let cols = parseInt(urlParams.get('cols'));
+            let mine_count = parseInt(urlParams.get('mines'));
+            let shape = urlParams.get('shape');
+            let highlight_assist = urlParams.get('highlight_assist') == "true";
+            document.getElementById('rows').value = parseInt(rows);
+            document.getElementById('cols').value = parseInt(cols);
+            document.getElementById('mines').value = parseInt(mine_count);
+            document.getElementById('shape').value = shape;
+            document.getElementById('h_assist').checked = highlight_assist;
+        });
+
         function validate() {
             document.getElementById('rows').value = Math.max(3, parseInt(document.getElementById('rows').value));
             document.getElementById('cols').value = Math.max(3, parseInt(document.getElementById('cols').value));

@@ -50,6 +50,13 @@ if (shape == null || shape == 'rect') {
 }
 
 window.addEventListener('load', function() {
+    var extra = "";
+    extra += "?rows=" + rows;
+    extra += "&cols=" + cols;
+    extra += "&mines=" + mine_count;
+    extra += "&shape=" + shape;
+    extra += "&highlight_assist=" + highlight_assist;
+    document.getElementById('returnButton').setAttribute('onclick', "window.location.href='index.html" + extra + "'")
     document.getElementById('flags').innerText = mine_count;
     //for (var i = 0; i < rows; i++) {
     //    var div = document.createElement("div");
