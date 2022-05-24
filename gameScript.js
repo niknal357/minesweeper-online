@@ -194,7 +194,9 @@ function check_win() {
     }
     if (!fail) {
         playing = false;
-        alert("you win");
+        setTimeout(() => {
+            alert("you win");
+        }, 10)
     }
 }
 
