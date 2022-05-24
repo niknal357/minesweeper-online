@@ -8,6 +8,17 @@ let highlight_assist = urlParams.get('highlight_assist') == "true";
 if (rows == null || cols == null || mine_count == null) {
     window.location.href = "index.html";
 }
+
+var color_1 = "#4444aa";
+var color_2 = "#008300";
+var color_3 = "#cc4444";
+var color_4 = "#a429d9";
+var color_5 = "#b5670e";
+var color_6 = "#31ebc2";
+var color_7 = "#a8136c";
+var color_8 = "#000000";
+var color_complete = "#dddddd";
+
 //let mine_density = 0.246;
 //let mine_count = Math.ceil(rows * cols * mine_density);
 var grid = [];
@@ -75,7 +86,11 @@ window.addEventListener('load', function() {
         for (var c = 0; c < cols; c++) {
             if (grid[r][c] == 'u') {
                 var button = document.createElement("button");
-                button.classList.add("but");
+                if ((r + c) % 2 == 0) {
+                    button.classList.add("bute");
+                } else {
+                    button.classList.add("buto");
+                }
                 button.id = "but_" + r + 'm' + c;
                 button.setAttribute("onClick", "javascript: clickHandler(" + r + ", " + c + ");");
                 button.style.padding = "0";
@@ -98,13 +113,16 @@ function reveal(r, c) {
                 if (grid[ro][co] == 'ub') {
                     grid[ro][co] = 'b'
                     document.getElementById("but_" + ro + "m" + co).textContent = '💣';
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("but");
+                    document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
+                    document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
                     document.getElementById("but_" + ro + "m" + co).classList.add("mine");
                 } else if (grid[ro][co] == 'bf') {
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("but");
+                    document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
+                    document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
                     document.getElementById("but_" + ro + "m" + co).classList.add("correctflag");
                 } else if (grid[ro][co] == 'f') {
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("but");
+                    document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
+                    document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
                     document.getElementById("but_" + ro + "m" + co).classList.add("incorrectflag");
                 }
             }
@@ -128,25 +146,31 @@ function reveal(r, c) {
         }
         let color = "#ff0000";
         if (cnt == 1) {
-            color = "#6666ff";
+            color = color_1
         } else if (cnt == 2) {
-            color = "#33aa33";
+            color = color_2;
         } else if (cnt == 3) {
-            color = "#ff5555";
+            color = color_3;
         } else if (cnt == 4) {
-            color = "#aa33aa";
+            color = color_4;
         } else if (cnt == 5) {
-            color = "#ee55ee";
+            color = color_5;
         } else if (cnt == 6) {
-            color = "#aa3333";
+            color = color_6;
         } else if (cnt == 7) {
-            color = "#22aaaa";
+            color = color_7;
         } else if (cnt == 8) {
-            color = "#ffff00";
+            color = color_8;
         }
 
         document.getElementById("but_" + r + "m" + c).style.color = color;
         document.getElementById("but_" + r + "m" + c).textContent = '' + cnt;
+        if ((r + c) % 2 == 0) {
+            document.getElementById("but_" + r + "m" + c).classList.add("revealede");
+        } else {
+
+            document.getElementById("but_" + r + "m" + c).classList.add("revealedo");
+        }
         document.getElementById("but_" + r + "m" + c).classList.add("revealed");
         grid[r][c] = 'o';
         if (cnt == 0) {
@@ -261,24 +285,24 @@ function clickHandler(r, c) {
                 if (grid[ra][ca] == 'o') {
                     let color = "#ff0000";
                     if (cnt == flag_cnt) {
-                        color = "#444444";
+                        color = color_complete;
                     } else {
                         if (cnt == 1) {
-                            color = "#6666ff";
+                            color = color_1
                         } else if (cnt == 2) {
-                            color = "#33aa33";
+                            color = color_2;
                         } else if (cnt == 3) {
-                            color = "#ff5555";
+                            color = color_3;
                         } else if (cnt == 4) {
-                            color = "#aa33aa";
+                            color = color_4;
                         } else if (cnt == 5) {
-                            color = "#ee55ee";
+                            color = color_5;
                         } else if (cnt == 6) {
-                            color = "#aa3333";
+                            color = color_6;
                         } else if (cnt == 7) {
-                            color = "#22aaaa";
+                            color = color_7;
                         } else if (cnt == 8) {
-                            color = "#ffff00";
+                            color = color_8;
                         }
                     }
                     document.getElementById("but_" + ra + "m" + ca).style.color = color;
