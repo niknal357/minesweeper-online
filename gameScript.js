@@ -22,8 +22,16 @@ var color_complete = "#dddddd";
 //let mine_density = 0.246;
 //let mine_count = Math.ceil(rows * cols * mine_density);
 var grid = [];
+var visu_grid = [];
 var gridmade = false;
 var playing = true;
+
+for (var r = 0; r < rows; r++) {
+    visu_grid.push([]);
+    for (var c = 0; c < cols; c++) {
+        visu_grid[visu_grid.length - 1].push("u");
+    }
+}
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -46,7 +54,7 @@ if (shape == null || shape == 'rect') {
 
                 grid[grid.length - 1].push("u");
             } else {
-
+                visu_grid[r][c] = '-';
                 grid[grid.length - 1].push("-");
             }
         }
@@ -106,6 +114,10 @@ function reveal(r, c) {
     if (r < 0 || r >= rows || c < 0 || c >= cols) {
         return;
     }
+    if (grid[r][c] == '-') {
+        return;
+    }
+    visu_grid[r][c] = 'o';
     if (grid[r][c] == 'ub') {
         playing = false;
         for (var ro = 0; ro < rows; ro++) {
@@ -309,6 +321,54 @@ function clickHandler(r, c) {
                     }
                     document.getElementById("but_" + ra + "m" + ca).style.color = color;
                 }
+            }
+        }
+    }
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ra == 0 || visu_grid[ra - 1][ca] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "2px solid #095210";
+            } else if (visu_grid[ra - 1][ca] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "0px solid #095210";
+            }
+        }
+    }
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ca == 0 || visu_grid[ra][ca - 1] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "2px solid #095210";
+            } else if (visu_grid[ra][ca - 1] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "0px solid #095210";
+            }
+        }
+    }
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ra == rows - 1 || visu_grid[ra + 1][ca] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "2px solid #095210";
+            } else if (visu_grid[ra + 1][ca] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "0px solid #095210";
+            }
+        }
+    }
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ca == cols - 1 || visu_grid[ra][ca + 1] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "2px solid #095210";
+            } else if (visu_grid[ra][ca + 1] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "0px solid #095210";
             }
         }
     }
