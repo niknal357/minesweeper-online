@@ -108,7 +108,59 @@ window.addEventListener('load', function() {
             }
         }
     }
+    update_outlines();
 })
+
+function update_outlines() {
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ra == 0 || visu_grid[ra - 1][ca] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "2px solid #095210";
+            } else if (visu_grid[ra - 1][ca] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "0px solid #095210";
+            }
+        }
+    }
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ca == 0 || visu_grid[ra][ca - 1] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "2px solid #095210";
+            } else if (visu_grid[ra][ca - 1] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "0px solid #095210";
+            }
+        }
+    }
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ra == rows - 1 || visu_grid[ra + 1][ca] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "2px solid #095210";
+            } else if (visu_grid[ra + 1][ca] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "0px solid #095210";
+            }
+        }
+    }
+    for (var ra = 0; ra < rows; ra++) {
+        for (var ca = 0; ca < cols; ca++) {
+            if (grid[ra][ca] == "-") { continue; }
+            if (ca == cols - 1 || visu_grid[ra][ca + 1] == "-") {
+                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "2px solid #095210";
+            } else if (visu_grid[ra][ca + 1] != visu_grid[ra][ca]) {
+                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "1px solid #095210";
+            } else {
+                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "0px solid #095210";
+            }
+        }
+    }
+}
 
 function reveal(r, c) {
     if (r < 0 || r >= rows || c < 0 || c >= cols) {
@@ -324,53 +376,6 @@ function clickHandler(r, c) {
             }
         }
     }
-    for (var ra = 0; ra < rows; ra++) {
-        for (var ca = 0; ca < cols; ca++) {
-            if (grid[ra][ca] == "-") { continue; }
-            if (ra == 0 || visu_grid[ra - 1][ca] == "-") {
-                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "2px solid #095210";
-            } else if (visu_grid[ra - 1][ca] != visu_grid[ra][ca]) {
-                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "1px solid #095210";
-            } else {
-                document.getElementById("but_" + ra + "m" + ca).style.borderTop = "0px solid #095210";
-            }
-        }
-    }
-    for (var ra = 0; ra < rows; ra++) {
-        for (var ca = 0; ca < cols; ca++) {
-            if (grid[ra][ca] == "-") { continue; }
-            if (ca == 0 || visu_grid[ra][ca - 1] == "-") {
-                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "2px solid #095210";
-            } else if (visu_grid[ra][ca - 1] != visu_grid[ra][ca]) {
-                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "1px solid #095210";
-            } else {
-                document.getElementById("but_" + ra + "m" + ca).style.borderLeft = "0px solid #095210";
-            }
-        }
-    }
-    for (var ra = 0; ra < rows; ra++) {
-        for (var ca = 0; ca < cols; ca++) {
-            if (grid[ra][ca] == "-") { continue; }
-            if (ra == rows - 1 || visu_grid[ra + 1][ca] == "-") {
-                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "2px solid #095210";
-            } else if (visu_grid[ra + 1][ca] != visu_grid[ra][ca]) {
-                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "1px solid #095210";
-            } else {
-                document.getElementById("but_" + ra + "m" + ca).style.borderBottom = "0px solid #095210";
-            }
-        }
-    }
-    for (var ra = 0; ra < rows; ra++) {
-        for (var ca = 0; ca < cols; ca++) {
-            if (grid[ra][ca] == "-") { continue; }
-            if (ca == cols - 1 || visu_grid[ra][ca + 1] == "-") {
-                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "2px solid #095210";
-            } else if (visu_grid[ra][ca + 1] != visu_grid[ra][ca]) {
-                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "1px solid #095210";
-            } else {
-                document.getElementById("but_" + ra + "m" + ca).style.borderRight = "0px solid #095210";
-            }
-        }
-    }
+    update_outlines();
     check_win();
 }
