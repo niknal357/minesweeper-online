@@ -94,10 +94,18 @@ window.addEventListener('load', function() {
         for (var c = 0; c < cols; c++) {
             if (grid[r][c] == 'u') {
                 var button = document.createElement("button");
-                if ((r + c) % 2 == 0) {
-                    button.classList.add("bute");
+                if (shape == "donut") {
+                    if ((r + c) % 2 == 0) {
+                        button.classList.add("donute");
+                    } else {
+                        button.classList.add("donuto");
+                    }
                 } else {
-                    button.classList.add("buto");
+                    if ((r + c) % 2 == 0) {
+                        button.classList.add("bute");
+                    } else {
+                        button.classList.add("buto");
+                    }
                 }
                 button.id = "but_" + r + 'm' + c;
                 button.setAttribute("onClick", "javascript: clickHandler(" + r + ", " + c + ");");
@@ -166,6 +174,9 @@ function reveal(r, c) {
     if (r < 0 || r >= rows || c < 0 || c >= cols) {
         return;
     }
+    if (grid[r][c] == 'f' || grid[r][c] == 'bf') {
+        return;
+    }
     if (grid[r][c] == '-') {
         return;
     }
@@ -177,16 +188,31 @@ function reveal(r, c) {
                 if (grid[ro][co] == 'ub') {
                     grid[ro][co] = 'b'
                     document.getElementById("but_" + ro + "m" + co).textContent = '💣';
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
+                    if (shape == "donut") {
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("donute");
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("donuto");
+                    } else {
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
+                    }
                     document.getElementById("but_" + ro + "m" + co).classList.add("mine");
                 } else if (grid[ro][co] == 'bf') {
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
+                    if (shape == "donut") {
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("donute");
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("donuto");
+                    } else {
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
+                    }
                     document.getElementById("but_" + ro + "m" + co).classList.add("correctflag");
                 } else if (grid[ro][co] == 'f') {
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
-                    document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
+                    if (shape == "donut") {
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("donute");
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("donuto");
+                    } else {
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("bute");
+                        document.getElementById("but_" + ro + "m" + co).classList.remove("buto");
+                    }
                     document.getElementById("but_" + ro + "m" + co).classList.add("incorrectflag");
                 }
             }
