@@ -9,6 +9,7 @@ var bug_fixes = [
 var known_issues = [
   "No leaderboards ¯\\_(ツ)_/¯",
   "Changelog bugs out when there is nothing in a given category",
+  "Timer dies at the end of the game",
 ];
 window.addEventListener("load", function () {
   var txt = "";
