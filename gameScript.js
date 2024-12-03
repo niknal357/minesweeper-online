@@ -225,7 +225,7 @@ function reveal(r, c) {
                         document
                             .getElementById("but_" + ro + "m" + co)
                             .classList.remove("donute");
-                        documents
+                        document
                             .getElementById("but_" + ro + "m" + co)
                             .classList.remove("donuto");
                     } else {
@@ -509,3 +509,18 @@ function clickHandler(r, c, e) {
     update_outlines();
     check_win();
 }
+
+// function printGrid() {
+//     for (let i = 0; i < grid.length; i++) {
+//         // join the row with spaces, pad each element to be 3 characters wide
+//         let output = "";
+//         for (let j = 0; j < grid[i].length; j++) {
+//             let str = grid[i][j];
+//             while (str.length < 3) {
+//                 str = " " + str;
+//             }
+//             output += str;
+//         }
+//         console.log(output);
+//     }
+// }
